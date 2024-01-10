@@ -1,0 +1,43 @@
+{
+  "name": "starknet-merkle-tree",
+  "version": "1.0.0",
+  "description": "To use Merkle trees with Starknet",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "jsdelivr": "dist/index.global.js",
+  "unpkg": "dist/index.global.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "browser": "./dist/index.global.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Philippe ROSTAN",
+  "repository": "github:PhilippeR26/starknetMerkleTree",
+  "keywords": [
+    "merkle",
+    "starknet",
+    "tree",
+    "airdrop"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.10.8",
+    "ts-node": "^10.9.2",
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.3"
+  },
+  "dependencies": {
+    "starknet": "^5.24.3"
+  }
+}
