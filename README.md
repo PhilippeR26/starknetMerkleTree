@@ -88,9 +88,9 @@ You have to create/declare/deploy your dedicated smart-contract (called here con
 This contract 2 has to call the contract 1 to verify if the data are correct and are part of the Merkle tree. 
 Contract 1 is able to say if an address and the corresponding data are included in the tree or not. Just by storing a felt252 in Starknet, you can check that an address is included in a list of thousand of addresses, and trigger a distribution of token to this address.
 
-You can find a documentation of this contract 1 [here](./cairo/merkleTreeVerify.md).
+You can find a documentation of this contract 1 [here](https://github.com/PhilippeR26/starknetMerkleTree/blob/main/cairo/merkleTreeVerify.md).
 
-> Some demo Typescript files are available [here](./typescript).
+> Some demo Typescript files are available [here](https://github.com/PhilippeR26/starknetMerkleTree/tree/main/typescript).
 
 > A demo DAPP for an Airdrop is in preparation, and you will find the link here as soon as released.
 
