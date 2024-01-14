@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { ec, num, encode } from 'starknet';
 
 // ***************************************************************

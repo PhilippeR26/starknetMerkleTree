@@ -1,0 +1,150 @@
+{
+  "abi": [
+    {
+      "type": "impl",
+      "name": "MerkleVerifyContract",
+      "interface_name": "merkle_verify_poseidon::merkle_verify_poseidon::IMerkleVerify"
+    },
+    {
+      "type": "enum",
+      "name": "core::bool",
+      "variants": [
+        {
+          "name": "False",
+          "type": "()"
+        },
+        {
+          "name": "True",
+          "type": "()"
+        }
+      ]
+    },
+    {
+      "type": "struct",
+      "name": "core::integer::u256",
+      "members": [
+        {
+          "name": "low",
+          "type": "core::integer::u128"
+        },
+        {
+          "name": "high",
+          "type": "core::integer::u128"
+        }
+      ]
+    },
+    {
+      "type": "interface",
+      "name": "merkle_verify_poseidon::merkle_verify_poseidon::IMerkleVerify",
+      "items": [
+        {
+          "type": "function",
+          "name": "get_root",
+          "inputs": [],
+          "outputs": [
+            {
+              "type": "core::felt252"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "verify_from_leaf_hash",
+          "inputs": [
+            {
+              "name": "leaf_hash",
+              "type": "core::felt252"
+            },
+            {
+              "name": "proof",
+              "type": "core::array::Array::<core::felt252>"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "core::bool"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "verify_from_leaf_array",
+          "inputs": [
+            {
+              "name": "leaf_array",
+              "type": "core::array::Array::<core::felt252>"
+            },
+            {
+              "name": "proof",
+              "type": "core::array::Array::<core::felt252>"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "core::bool"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "verify_from_leaf_airdrop",
+          "inputs": [
+            {
+              "name": "address",
+              "type": "core::starknet::contract_address::ContractAddress"
+            },
+            {
+              "name": "amount",
+              "type": "core::integer::u256"
+            },
+            {
+              "name": "proof",
+              "type": "core::array::Array::<core::felt252>"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "core::bool"
+            }
+          ],
+          "state_mutability": "view"
+        },
+        {
+          "type": "function",
+          "name": "hash_leaf_array",
+          "inputs": [
+            {
+              "name": "leaf",
+              "type": "core::array::Array::<core::felt252>"
+            }
+          ],
+          "outputs": [
+            {
+              "type": "core::felt252"
+            }
+          ],
+          "state_mutability": "view"
+        }
+      ]
+    },
+    {
+      "type": "constructor",
+      "name": "constructor",
+      "inputs": [
+        {
+          "name": "merkle_root",
+          "type": "core::felt252"
+        }
+      ]
+    },
+    {
+      "type": "event",
+      "name": "merkle_verify_poseidon::merkle_verify_poseidon::merkle::Event",
+      "kind": "enum",
+      "variants": []
+    }
+  ]
+}
