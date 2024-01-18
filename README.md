@@ -80,7 +80,7 @@ You have to deploy a new instance of an existing smart-contract. There is one co
 
 | Tree hash |  Class hash | 
 | :---: | :--- |
-| **Pedersen class hash** |  Soon | 
+| **Pedersen class hash** |  `0x4ff16c026ed3b1849563c95605ef8ee91ca403f2c680bda53e4f6717400b230` | 
 | **Poseidon class hash** | `0x03e2efc98f902c0b33eee6c3daa97b941912bcab61b6162884380c682e594eaf`| 
 
 So, you will not have to pay fees to declare this part of the airdrop code ; it's already made.

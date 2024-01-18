@@ -7,7 +7,7 @@ These 2 contracts are used in Starknet as libraries, to verify a proof of a Merk
 Classes available in Starknet Mainnet, Goerli Testnet and Sepolia Testnet :
 | Tree hash |  Class hash | 
 | :---: | ---: |
-| **Pedersen class hash** |  Soon | 
+| **Pedersen class hash** |  `0x4ff16c026ed3b1849563c95605ef8ee91ca403f2c680bda53e4f6717400b230` | 
 | **Poseidon class hash** | `0x03e2efc98f902c0b33eee6c3daa97b941912bcab61b6162884380c682e594eaf`| 
 
 ## Deployment :
@@ -15,7 +15,7 @@ Classes available in Starknet Mainnet, Goerli Testnet and Sepolia Testnet :
 For each Merkle tree, you have to deploy a new instance of one of these 2 classes (choose Pedersen or Poseidon, in accordance with the tree that you have created). The constructor includes only one information : the root of this tree. By this way, this deployment is cost effective : no declaration of class (already made) and a very small storage space (only one felt).  
 Example with Starknet.js :
 ```typescript
-const MERKLE_CLASS_HASH_PEDERSEN = "Soon";
+const MERKLE_CLASS_HASH_PEDERSEN = "0x4ff16c026ed3b1849563c95605ef8ee91ca403f2c680bda53e4f6717400b230";
 const MERKLE_CLASS_HASH_POSEIDON = "0x03e2efc98f902c0b33eee6c3daa97b941912bcab61b6162884380c682e594eaf";
 const tree = Merkle.StarknetMerkleTree.load(
         JSON.parse(fs.readFileSync('./treeTestPoseidon.json', 'ascii'))
