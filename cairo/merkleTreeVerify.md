@@ -37,13 +37,28 @@ This contract 2 has to call the contract deployed above (called here contract 1)
 Contract 1 is able to say if an address and the corresponding data are included in the tree or not. Just by storing a felt252 in Starknet, you can check that an address is included in a list of thousand of addresses, and trigger in contract 2 a distribution of token to this address.  
 Hereunder an extract of an example of a Contract 2 that call Contract 1 to verify a proof :
 ```rust
+#[starknet::interface]
+trait IMerkleVerify<TContractState> {
+    fn get_root(self: @TContractState) -> felt252;
+    fn verify_from_leaf_hash(
+        self: @TContractState, leaf_hash: felt252, proof: Array<felt252>
+    ) -> bool;
+    fn verify_from_leaf_array(
+        self: @TContractState, leaf_array: Array<felt252>, proof: Array<felt252>
+    ) -> bool;
+    fn verify_from_leaf_airdrop(
+        self: @TContractState, address: ContractAddress, amount: u256, proof: Array<felt252>
+    ) -> bool;
+    fn hash_leaf_array(self: @TContractState, leaf: Array<felt252>) -> felt252;
+}
 ...
 fn constructor(
     ref self: ContractState,
     erc20_address: ContractAddress,
     merkle_address: ContractAddress,
+    erc20_owner: ContractAddress,
     start_time: u64,
-)
+) 
 ...
 fn request_airdrop(
     ref self: ContractState, address: ContractAddress, amount: u256, proof: Array<felt252>
@@ -53,17 +68,10 @@ fn request_airdrop(
     let current_time: u64 = get_block_timestamp();
     let airdrop_start_time: u64 = self.start_time.read();
     assert(current_time >= airdrop_start_time, "Airdrop has not started yet.");
-    let mut call_data: Array<felt252> = ArrayTrait::new();
-    call_data.append(address.into());
-    call_data.append(amount.low.into());
-    call_data.append(amount.high.into());
-    Serde::serialize(@proof, ref call_data);
-    let mut is_leave_valid = starknet::call_contract_syscall(
-        self.merkle_address.read(), selector!("verify_from_leaf_airdrop"), call_data.span()
-    )
-        .unwrap_syscall();
-    let mut is_request_valid: bool = Serde::<bool>::deserialize(ref is_leave_valid)
-        .unwrap();
+    let is_request_valid: bool = IMerkleVerifyDispatcher {
+        contract_address: self.merkle_address.read()
+    }
+        .verify_from_leaf_airdrop( address, amount, proof);
     assert(is_request_valid, "Proof not valid."); // revert if not valid
     // Airdrop
     // Register the address as already airdropped
@@ -74,13 +82,11 @@ fn request_airdrop(
     return ();
 }
 ```
-> The Cairo source code is [here](./airdrop_poseidon.cairo)
-
-This example has been deployed in Sepolia at this address : `0x54c81caa64bce9a169a7d8975c1610536b3adf4599f9bdd2a5e99054e4d4c64`
+> The Cairo source code is [here](./airdrop.cairo)
 
 In your DAPP, you can call the contract 2 this way (here with Starknet.js) :
 ```typescript
-const compiledTest = json.parse(fs.readFileSync("./airdrop_poseidon.sierra.json").toString("ascii"));
+const compiledTest = json.parse(fs.readFileSync("./airdrop.sierra.json").toString("ascii"));
 const myContract = new Contract(compiledTest.abi, AIRDROP_ADDRESS, account0);
 
 const tree = Merkle.StarknetMerkleTree.load(

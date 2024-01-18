@@ -22,17 +22,19 @@ async function main() {
     console.log("Account 0 connected.\n In progress...");
 
     // declare/deploy Airdrop test
-    const compiledSierraAirdrop = json.parse(fs.readFileSync("./compiledContracts/cairo240/airdrop_poseidon.sierra.json").toString("ascii"));
-    const compiledCasmAirdrop = json.parse(fs.readFileSync("./compiledContracts/cairo240/airdrop_poseidon.casm.json").toString("ascii"));
+    const compiledSierraAirdrop = json.parse(fs.readFileSync("./compiledContracts/cairo240/airdrop.sierra.json").toString("ascii"));
+    const compiledCasmAirdrop = json.parse(fs.readFileSync("./compiledContracts/cairo240/airdrop.casm.json").toString("ascii"));
     //         👇👇👇
-    // 🚨🚨🚨 Change addresses following execution of scripts src/scripts/merkleTree/2a.deployMerkleVerifPoseidonDevnet.ts 
-    const ERC20_ADDRESS = "0x7fb43edfc864a456381fb22312f376a69ac77ff8537f008e4601f9a2ae7b4a9";
-    const MERKLE_VERIF_ADDRESS = "0x245005f166163ea9d7ecdad262c69bd313caa5618e6093e62b28130240ba2a0";
+    // 🚨🚨🚨 Change addresses following execution of scripts 2.deployMerkleVerifPoseidonDevnet.ts 
+    const ERC20_ADDRESS = "0x1adfa979bc2ec510f98dec71f34520408cc730b5e6f6980c3ac9cb28521ff78";
+    const MERKLE_VERIF_ADDRESS = "0x2ddbfbf0a4944b4bb702a715773fe985c4a305a101adecb361e0f1522159c3b";
     //         👆👆👆
+    console.log('In progress...');
     const myCallAirdrop = new CallData(compiledSierraAirdrop.abi);
     const myConstructorAirdrop: Calldata = myCallAirdrop.compile("constructor", {
         erc20_address: ERC20_ADDRESS,
         merkle_address: MERKLE_VERIF_ADDRESS,
+        erc20_owner: account0.address,
         start_time: 0, // no date of airdrop start
     });
     const deployResponse = await account0.declareAndDeploy({
@@ -46,6 +48,17 @@ async function main() {
     console.log("Airdrop contract :");
     console.log("class_hash =", airdropClassHash);
     console.log("address =", airdropAddress);
+
+    // authorize the Airdrop contract to transfer some tokens
+    const compiledSierraERC20 = json.parse(fs.readFileSync("compiledContracts/cairo220/erc20OZ070.sierra.json").toString("ascii"));
+    const erc20Contract = new Contract(compiledSierraERC20.abi, ERC20_ADDRESS, account0);
+    const authorize: Call = erc20Contract.populate("approve", {
+        spender: airdropAddress,
+        amount: 500
+    });
+    const tx = await account0.execute(authorize);
+    const txR = await provider.waitForTransaction(tx.transaction_hash);
+    console.log("authorize =",txR.execution_status);
 
     console.log("✅ test completed.");
 }

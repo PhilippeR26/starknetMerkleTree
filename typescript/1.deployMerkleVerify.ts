@@ -1,13 +1,9 @@
 // script valid for Pedersen and Poseidon, for all networks.
 // Deploy a contract to verify a Pedersen/Poseidon Merkle tree
 // Coded with Starknet.js v6.0.0-beta.11 and Starknet-devnet-rs (compatible rpc 0.6.0)
-// launch with npx ts-node 4.deployMerkleVerify.ts
+// launch with npx ts-node 1.deployMerkleVerify.ts
 
-import { Account, Call, Calldata, CallData, constants, Contract, json, RPC, RpcProvider, shortString } from 'starknet';
-import { account5TestnetAddress, account5TestnetPrivateKey } from "../../A1priv/A1priv";
-import { infuraKey, account1MainnetAddress, account1MainnetPrivateKey, blastKey } from "../../A-MainPriv/mainPriv";
-import { account0OZSepoliaAddress, account0OZSepoliaPrivateKey } from "../../A1priv/A1priv";
-import { resetDevnetNow } from '../utils/resetDevnetFunc';
+import { Account, Calldata, CallData, constants, RpcProvider, shortString } from 'starknet';
 
 import fs from "fs";
 import * as dotenv from "dotenv";
@@ -24,11 +20,11 @@ async function main() {
     // Goerli Testnet
     // const provider = new RpcProvider({ nodeUrl: 'https://starknet-testnet.blastapi.io/' + blastKey + "/rpc/v0_6" }); 
     // local Pathfinder Sepolia Testnet node :
-    // const provider = new RpcProvider({ nodeUrl: "http://192.168.1.7:9545/rpc/v0_6" }); 
+    // const provider = new RpcProvider({ nodeUrl: "http://192.168.1.11:9545/rpc/v0_6" }); 
     // local Pathfinder Sepolia Integration node :
-    //const provider = new RpcProvider({ nodeUrl: "http://192.168.1.44:9550/rpc/v0_6" }); 
+    //const provider = new RpcProvider({ nodeUrl: "http://192.168.1.11:9550/rpc/v0_6" }); 
     // local Juno mainnet :
-    //const provider = new RpcProvider({ nodeUrl: "http://192.168.1.7:6060/v0_6" }); //v0.6.0
+    //const provider = new RpcProvider({ nodeUrl: "http://192.168.1.11:6060/v0_6" }); //v0.6.0
 
     // Check that communication with provider is OK
     const ch = await provider.getChainId();
@@ -54,7 +50,7 @@ async function main() {
     // const privateKey0 = account1IntegrationOZprivateKey;
     // const accountAddress0 = account1IntegrationOZaddress;
 
-    const account0 = new Account(provider, accountAddress0, privateKey0, undefined, constants.TRANSACTION_VERSION.V2);
+    const account0 = new Account(provider, accountAddress0, privateKey0, undefined, constants.TRANSACTION_VERSION.V2); // starknet.js v6
     console.log('existing_ACCOUNT_ADDRESS=', accountAddress0);
     console.log('existing account connected.\n');
 

@@ -9,6 +9,8 @@
 
 **This library has not been audited ; use at your own risks.**
 
+> **Stars are highly appreciated! Thanks in advance.**
+
 This library is able to create and handle Merkle trees, using very efficient and specifics hashes for the Starknet blockchain. You can use :
 - Pedersen hash (by default)
 - Poseidon hash (the most efficient one)
