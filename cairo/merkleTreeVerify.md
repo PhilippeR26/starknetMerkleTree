@@ -119,10 +119,38 @@ fn constructor(
         ref self: ContractState,
         erc20_address: ContractAddress,
         merkle_address: ContractAddress, // address of Contract 1
+        erc20_owner: ContractAddress,
         start_time: u64,
     )
 ```
 This value has to be stored in the contract.
+
+In your contract 2, you will call contract 1 functions. You can proceed this two ways :
+- low level call, with `call_contract_syscall`. All example above are using this function.
+- high level call, using the `IMerkleVerify` interface. Add this code at the beginning of your contract :
+```rust
+#[starknet::interface]
+trait IMerkleVerify<TContractState> {
+    fn get_root(self: @TContractState) -> felt252;
+    fn verify_from_leaf_hash(
+        self: @TContractState, leaf_hash: felt252, proof: Array<felt252>
+    ) -> bool;
+    fn verify_from_leaf_array(
+        self: @TContractState, leaf_array: Array<felt252>, proof: Array<felt252>
+    ) -> bool;
+    fn verify_from_leaf_airdrop(
+        self: @TContractState, address: ContractAddress, amount: u256, proof: Array<felt252>
+    ) -> bool;
+    fn hash_leaf_array(self: @TContractState, leaf: Array<felt252>) -> felt252;
+}
+```
+and an example of use
+```rust
+let is_request_valid: bool = IMerkleVerifyDispatcher {
+        contract_address: self.merkle_address.read()
+    }
+        .verify_from_leaf_airdrop( address, amount, proof);
+```
 
 ### hash_leaf_array() :
 
