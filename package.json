@@ -1,6 +1,6 @@
 {
   "name": "starknet-merkle-tree",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "To use Merkle trees with Starknet",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
