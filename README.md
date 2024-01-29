@@ -92,9 +92,9 @@ Contract 1 is able to say if an address and the corresponding data are included 
 
 You can find a documentation of this contract 1 [here](https://github.com/PhilippeR26/starknetMerkleTree/blob/main/cairo/merkleTreeVerify.md).
 
-> Some demo Typescript files are available [here](https://github.com/PhilippeR26/starknetMerkleTree/tree/main/typescript).
+> Some Typescript demo files are available [here](https://github.com/PhilippeR26/starknetMerkleTree/tree/main/typescript).
 
-> A demo DAPP for an Airdrop is in preparation, and you will find the link here as soon as released.
+> A demo DAPP for an Airdrop is available,. You can test it and analyze the source code [here](https://github.com/PhilippeR26/Airdrop-for-Starknet).
 
 ## API :
 
