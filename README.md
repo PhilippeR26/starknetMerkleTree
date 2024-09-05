@@ -94,7 +94,7 @@ You can find a documentation of this contract 1 [here](https://github.com/Philip
 
 > Some Typescript demo files are available [here](https://github.com/PhilippeR26/starknetMerkleTree/tree/main/typescript).
 
-> A demo DAPP for an Airdrop is available,. You can test it and analyze the source code [soon](https://github.com/PhilippeR26/).
+> A demo DAPP for an Airdrop is available,. You can test it and analyze the source code [here](https://github.com/PhilippeR26/Airdrop-for-Starknet).
 
 ## API :
 
