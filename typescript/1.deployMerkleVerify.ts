@@ -1,7 +1,7 @@
 // script valid for Pedersen and Poseidon, for all networks.
 // Deploy a contract to verify a Pedersen/Poseidon Merkle tree
-// Coded with Starknet.js v6.0.0-beta.11 and Starknet-devnet-rs (compatible rpc 0.6.0)
-// launch with npx ts-node 1.deployMerkleVerify.ts
+// Coded with Starknet.js v6.17.0 and Starknet-devnet-rs v0.2.0
+// Launch with npx ts-node 1.deployMerkleVerify.ts
 
 import { Account, Calldata, CallData, constants, RpcProvider, shortString } from 'starknet';
 

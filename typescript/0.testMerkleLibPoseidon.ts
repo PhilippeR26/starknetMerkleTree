@@ -1,6 +1,6 @@
 // Test a Merkle tree hashed with Poseidon
-// Coded with Starknet.js v6.0.0-beta.11 and Starknet-devnet-rs (compatible rpc 0.6.0)
-// launch with npx ts-node 0.testMerkleLibPoseidon.ts
+// Launch with npx ts-node 0.testMerkleLibPoseidon.ts
+// Coded with Starknet.js v6.17.0 and Starknet-devnet-rs 0.2.0
 
 import { num } from "starknet";
 import * as Merkle from "starknet-merkle-tree";

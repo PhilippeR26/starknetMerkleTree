@@ -1,8 +1,9 @@
 // Declare/Deploy a demo of Airdrop contract
-// Coded with Starknet.js v6.0.0-beta.11 and Starknet-devnet-rs (compatible rpc 0.6.0)
-// launch with npx ts-node 5.deployAirdropPoseidonDevnet.ts
+// Coded with Starknet.js v6.17.0 and Starknet-devnet-rs v0.2.0
+// Launch with npx ts-node 5.deployAirdropPoseidonDevnet.ts
 
 import { Account, json, Contract, RpcProvider, RPC, Call, Calldata, CallData } from "starknet";
+import type { SPEC } from "@starknet-io/types-js";
 import * as dotenv from "dotenv";
 import fs from "fs";
 dotenv.config();
@@ -58,7 +59,7 @@ async function main() {
     });
     const tx = await account0.execute(authorize);
     const txR = await provider.waitForTransaction(tx.transaction_hash);
-    console.log("authorize =",txR.execution_status);
+    console.log("authorize =",(txR.value as SPEC.INVOKE_TXN_RECEIPT).execution_status);
 
     console.log("✅ test completed.");
 }

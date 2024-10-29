@@ -1,12 +1,10 @@
 // Declare/Deploy an ERC20 and a contract to verify a Poseidon Merkle tree
-// Coded with Starknet.js v6.0.0-beta.11 and Starknet-devnet-rs (compatible rpc 0.6.0)
-// launch with npx ts-node 2.deployMerklePoseidonDevnet.ts
+// Coded with Starknet.js v6.17.0 and Starknet-devnet-rs v0.2.0
+// Launch with npx ts-node 2.deployMerklePoseidonDevnet.ts
 
 import { Account, Calldata, CallData, json, RPC, RpcProvider } from 'starknet';
 import fs from "fs";
-
 import * as dotenv from "dotenv";
-import { resetDevnetNow } from '../utils/resetDevnetFunc';
 dotenv.config();
 
 //    👇👇👇
@@ -16,8 +14,7 @@ dotenv.config();
 async function main() {
     const provider = new RpcProvider({ nodeUrl: "http://127.0.0.1:5050/rpc" }); // only for starknet-devnet-rs
     console.log("Provider connected to Starknet-devnet-rs");
-    resetDevnetNow();
-    console.log("Devnet reset performed.");
+
     
     // initialize existing pre-deployed account 0 of Devnet
     console.log('OZ_ACCOUNT_ADDRESS=', process.env.OZ_ACCOUNT0_DEVNET_ADDRESS);

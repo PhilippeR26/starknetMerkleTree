@@ -1,8 +1,10 @@
 // Test a Merkle tree hashed with Poseidon.
-// Coded with Starknet.js v6.0.0-beta.11 and Starknet-devnet-rs (compatible rpc 0.6.0)
-// launch with npx ts-node 6.testAirdropPoseidonDevnet.ts
+// Coded with Starknet.js v6.17.0 and Starknet-devnet-rs v0.2.0
+// Launch with npx ts-node 6.testAirdropPoseidonDevnet.ts
 
 import { Account, json, Contract, RpcProvider, RPC, num, uint256, Uint256 } from "starknet";
+import {StarknetMerkleTree} from "../src/index";
+import type { SPEC } from "@starknet-io/types-js";
 import * as dotenv from "dotenv";
 import fs from "fs";
 dotenv.config();
@@ -36,8 +38,9 @@ async function main() {
     console.log(myContract.functions);
     console.log('Contract connected at =', myContract.address, "\n");
 
-    // Interactions with the contract with call 
-    const tree = Merkle.StarknetMerkleTree.load(
+    // ** Interactions with the contract with call **
+    // In your script, use `Merkle.StarknetMerkleTree.load()`
+    const tree = StarknetMerkleTree.load(
         JSON.parse(fs.readFileSync('./src/scripts/merkleTree/treeTestPoseidon.json', 'ascii'))
     );
     const leaf=tree.getInputData(3);
@@ -62,7 +65,7 @@ async function main() {
     const txResp = await account0.execute(myCall);
     console.log("executed...");
     const txR=await provider.waitForTransaction(txResp.transaction_hash);
-    console.log("event =",txR.events);
+    console.log("event =",(txR.value as SPEC.INVOKE_TXN_RECEIPT).events);
     const result1 = await myContract.is_address_airdropped(leaf[0]);
     console.log("result from airdrop request =", result1);
     const bal=await erc20Contract.balanceOf(leaf[0]);
