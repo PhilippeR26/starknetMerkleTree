@@ -1,23 +1,30 @@
 {
   "name": "starknet-merkle-tree",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "To use Merkle trees with Starknet",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "types": "dist/types/index.d.ts",
+  "main": "./dist/cjs/index.js",
+  "module": "./dist/esm/index.mjs",
   "exports": {
     ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js",
-      "browser": "./dist/index.global.js",
-      "types": "./dist/index.d.ts"
+      "types": "./dist/types/index.d.ts",
+      "require": "./dist/cjs/index.js",
+      "import": "./dist/esm/index.mjs",
+      "default": "./dist/esm/index.mjs"
     }
   },
   "files": [
     "dist",
-    "src"
+    "src",
+    "!**/*.tsbuildinfo",
+    "LICENSE",
+    "README.md"
   ],
   "scripts": {
-    "build": "tsc",
+    "compile": "tsc -b ./tsconfig.cjs.json ./tsconfig.esm.json ./tsconfig.types.json",
+    "build:clean": "rm -rf ./dist",
+    "build": "npm run build:clean && npm run compile && npm run rename:esm",
+    "rename:esm": "bash ./scripts/fix-mjs.sh",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Philippe ROSTAN",
